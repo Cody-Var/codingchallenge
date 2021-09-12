@@ -23,4 +23,4 @@ aws ecr get-login-password --region ap-southeast-2 | docker login --username AWS
 docker push {AWS _account_id}.dkr.ecr.ap-southeast-2.amazonaws.com/afterpay-test
 
 8) creating ECS cluster
-aws cloudformation create-stack --stack-name example-deployment --template-body file://afterpay-ecs.yml --capabilities CAPABILITY_NAMED_IAM --parameters 'ParameterKey=SubnetID,ParameterValue={subnet_id}’
+aws cloudformation create-stack --stack-name afterpay-deployment --template-body file://afterpay-ecs.yml --capabilities CAPABILITY_NAMED_IAM --parameters 'ParameterKey=SubnetID,ParameterValue={subnet_id}’

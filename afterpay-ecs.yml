@@ -7,7 +7,7 @@ Resources:
   Cluster:
     Type: 'AWS::ECS::Cluster'
     Properties:
-      ClusterName: deployment-cluster
+      ClusterName: deployment-afterpay-cluster
   LogGroup:
     Type: 'AWS::Logs::LogGroup'
     Properties:
@@ -44,7 +44,7 @@ Resources:
         ExecutionRoleArn: !Ref ExecutionRole
         ContainerDefinitions:
           - Name: deployment-afterpay-container
-            Image: '127077682219.dkr.ecr.ap-southeast-2.amazonaws.com/afterpay-test:latest'
+            Image: '127077682219.dkr.ecr.ap-southeast-2.amazonaws.com/afterpay-test:latest' # Docker image stored in ECR, need to update as per AWS account
             PortMappings:
               - ContainerPort: 80
             LogConfiguration:
