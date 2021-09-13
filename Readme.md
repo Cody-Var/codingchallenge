@@ -2,7 +2,6 @@ Prerequisite-
 1) Docker installed on the system
 2) Have an AWS account for deploying application
 
-
 Steps to deploy application:
 1) Configure your profile with AWS access and secret key or IAM(command : aws configure)
 2) Create ECR repository by running below command
@@ -16,11 +15,14 @@ aws ecr create-repository \
 docker build . -t afterpay-test
 6) Tag docker image 
 docker tag afterpay-test:latest {AWS _account_id}.dkr.ecr.ap-southeast-2.amazonaws.com/afterpay-test
-7) Push docker image to ECR repository
+7) Push docker image to ECR repository(craeted in step 3)
 
 aws ecr get-login-password --region ap-southeast-2 | docker login --username AWS --password-stdin {AWS _account_id}.dkr.ecr.ap-southeast-2.amazonaws.com
 
 docker push {AWS _account_id}.dkr.ecr.ap-southeast-2.amazonaws.com/afterpay-test
 
 8) creating ECS cluster
-aws cloudformation create-stack --stack-name afterpay-deployment --template-body file://afterpay-ecs.yml --capabilities CAPABILITY_NAMED_IAM --parameters 'ParameterKey=SubnetID,ParameterValue={subnet_id}’
+aws cloudformation create-stack --stack-name afterpay-test-deployment --template-body file://afterpay-ecs.yml --capabilities CAPABILITY_NAMED_IAM --parameters 'ParameterKey=VPC,ParameterValue=vpc-02ae5664' 'ParameterKey=PublicSubnet1,ParameterValue=subnet-7d01d335' 'ParameterKey=PublicSubnet1,ParameterValue=subnet-86ed4de0' 
+ Note: update values for vpc & subnets
+
+Output of created stack is the url to access application
